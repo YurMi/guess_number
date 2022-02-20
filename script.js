@@ -9,6 +9,7 @@ const h1 = document.querySelector("h1");
 let score = document.querySelector(".score");
 let highscore = document.querySelector(".highscore");
 const header = document.querySelector("header");
+const ValueTAg = document.querySelector(".number-input");
 
 //Начальные значения
 let step = 20;
@@ -35,8 +36,8 @@ function startPlay() {
 
       calcScore--;
       step--;
+      ValueTAg.value = "";
       score.innerHTML = calcScore;
-      console.log(`step ${step}`);
     }
 
     if (ValueInput === rightNumber) {
@@ -53,7 +54,6 @@ function startPlay() {
       }
 
       step = -1;
-      console.log(`Step = 0, Игра закончена`);
     }
   }
 
@@ -76,10 +76,9 @@ function restartGame() {
   rightNumber = Math.floor(Math.random() * 20) + 1;
   h1.textContent = "Угадай Число!";
   question.textContent = "???";
+  ValueTAg.value = "";
   header.classList.remove("you_have_right");
   question.classList.remove("you_have_right");
-
-  console.log(rightNumber);
   infoMessage.textContent = "Начни угадывать";
 }
 //Слушает кнопку для перезапуска игры
