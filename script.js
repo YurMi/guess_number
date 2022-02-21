@@ -87,7 +87,9 @@ againButton.addEventListener("click", restartGame);
 document.addEventListener("keydown", function (e) {
   if (e.key == "Enter") {
     startPlay();
-  } else if (e.key == "Escape") {
+  }
+
+  if (e.key == "Escape") {
     restartGame();
   }
 });
