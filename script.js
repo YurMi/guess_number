@@ -24,15 +24,13 @@ function startPlay() {
     infoMessage.textContent = "Введите число от 1 до 20";
   }
 
+  //Игра продолжается
   if (ValueInput > 0 && ValueInput <= 20) {
+    // Если ответ не верный
     if (ValueInput != rightNumber) {
-      // Если ответ не верный
-
-      if (ValueInput < rightNumber) {
-        infoMessage.textContent = "Маловато";
-      } else {
-        infoMessage.textContent = "Многовато";
-      }
+      ValueInput < rightNumber
+        ? (infoMessage.textContent = "Маловато")
+        : (infoMessage.textContent = "Многовато");
 
       calcScore--;
       step--;
@@ -40,8 +38,8 @@ function startPlay() {
       score.innerHTML = calcScore;
     }
 
+    //Если ответ верный
     if (ValueInput === rightNumber) {
-      //Если ответ верный
       h1.textContent = "ПОЗДРАВЛЯЕМ!";
       infoMessage.textContent = "Верно!";
       header.classList.add("you_have_right");
@@ -52,11 +50,10 @@ function startPlay() {
         bestScore = calcScore;
         highscore.textContent = bestScore;
       }
-
-      step = -1;
     }
   }
 
+  //Игрок проиграл, закончились попытки
   if (calcScore == 0) {
     h1.textContent = "Хотети попробовать снова? Нажмите кнопку 'Сначала!' ";
     infoMessage.textContent = "Попытки закончились";
@@ -65,7 +62,7 @@ function startPlay() {
     console.log(`Step = 0, Игра закончена`);
   }
 }
-//Слушает кнопку для начла игры
+//Слушает кнопку для начaла игры
 CheckButton.addEventListener("click", startPlay);
 
 //Перезапуск Игры
@@ -80,6 +77,17 @@ function restartGame() {
   header.classList.remove("you_have_right");
   question.classList.remove("you_have_right");
   infoMessage.textContent = "Начни угадывать";
+
+  console.log(rightNumber);
 }
 //Слушает кнопку для перезапуска игры
 againButton.addEventListener("click", restartGame);
+
+//Слушает Кнопки для сравнения введённого числа и для обнуления игры
+document.addEventListener("keydown", function (e) {
+  if (e.key == "Enter") {
+    startPlay();
+  } else if (e.key == "Escape") {
+    restartGame();
+  }
+});
