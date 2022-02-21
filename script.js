@@ -1,6 +1,5 @@
 "use strict";
 let rightNumber = Math.floor(Math.random() * 20) + 1;
-console.log(rightNumber); //Рандомное число от 1 до 20;
 const CheckButton = document.querySelector(".btn.check");
 const againButton = document.querySelector(".btn.again");
 const infoMessage = document.querySelector(".guess-message");
@@ -21,7 +20,7 @@ function startPlay() {
   const ValueInput = Number(document.querySelector(".number-input").value);
 
   if (ValueInput == 0 || ValueInput >= 21) {
-    infoMessage.textContent = "Введите число от 1 до 20";
+    WritesMessage(infoMessage, "Введите число от 1 до 20");
   }
 
   //Игра продолжается
@@ -29,8 +28,8 @@ function startPlay() {
     // Если ответ не верный
     if (ValueInput != rightNumber) {
       ValueInput < rightNumber
-        ? (infoMessage.textContent = "Маловато")
-        : (infoMessage.textContent = "Многовато");
+        ? WritesMessage(infoMessage, "Маловато")
+        : WritesMessage(infoMessage, "Многовато");
 
       calcScore--;
       step--;
@@ -40,8 +39,9 @@ function startPlay() {
 
     //Если ответ верный
     if (ValueInput === rightNumber) {
-      h1.textContent = "ПОЗДРАВЛЯЕМ!";
-      infoMessage.textContent = "Верно!";
+      WritesMessage(h1, "ПОЗДРАВЛЯЕМ!");
+      WritesMessage(infoMessage, "Верно!");
+
       header.classList.add("you_have_right");
       question.classList.add("you_have_right");
       question.textContent = rightNumber;
@@ -55,11 +55,11 @@ function startPlay() {
 
   //Игрок проиграл, закончились попытки
   if (calcScore == 0) {
-    h1.textContent = "Хотети попробовать снова? Нажмите кнопку 'Сначала!' ";
-    infoMessage.textContent = "Попытки закончились";
+    WritesMessage(h1, "Хотети попробовать снова? Нажмите кнопку 'Сначала!' ");
+    WritesMessage(infoMessage, "Попытки закончились");
+
     question.textContent = rightNumber;
     step = -1;
-    console.log(`Step = 0, Игра закончена`);
   }
 }
 //Слушает кнопку для начaла игры
@@ -71,14 +71,14 @@ function restartGame() {
   calcScore = 20;
   score.innerHTML = calcScore;
   rightNumber = Math.floor(Math.random() * 20) + 1;
-  h1.textContent = "Угадай Число!";
-  question.textContent = "???";
+
+  WritesMessage(h1, "Угадай Число!");
+  WritesMessage(question, "???");
+  WritesMessage(infoMessage, "Начни угадывать");
+
   ValueTAg.value = "";
   header.classList.remove("you_have_right");
   question.classList.remove("you_have_right");
-  infoMessage.textContent = "Начни угадывать";
-
-  console.log(rightNumber);
 }
 //Слушает кнопку для перезапуска игры
 againButton.addEventListener("click", restartGame);
@@ -93,3 +93,8 @@ document.addEventListener("keydown", function (e) {
     restartGame();
   }
 });
+
+//Ф-ция пишет текст
+function WritesMessage(variable, message) {
+  variable.textContent = message;
+}
